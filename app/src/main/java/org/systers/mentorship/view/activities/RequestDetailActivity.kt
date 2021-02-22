@@ -3,7 +3,7 @@ package org.systers.mentorship.view.activities
 import android.app.AlertDialog
 import android.content.DialogInterface
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import android.text.method.ScrollingMovementMethod
@@ -25,7 +25,7 @@ import org.systers.mentorship.view.fragments.RequestPagerFragment
 class RequestDetailActivity: BaseActivity() {
 
     private val requestDetailViewModel by lazy {
-        ViewModelProvider(this).get(RequestDetailViewModel::class.java)
+        ViewModelProviders.of(this).get(RequestDetailViewModel::class.java)
     }
     private val mentorshipRelationResponse by lazy {
         intent.getParcelableExtra<Relationship>(Constants.RELATIONSHIP_EXTRA)

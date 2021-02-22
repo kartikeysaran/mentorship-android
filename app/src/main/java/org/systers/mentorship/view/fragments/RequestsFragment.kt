@@ -3,7 +3,7 @@ package org.systers.mentorship.view.fragments
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_requests.*
 import org.systers.mentorship.R
@@ -27,7 +27,7 @@ class RequestsFragment : BaseFragment() {
     }
 
     private val requestsViewModel by lazy {
-        ViewModelProvider(this).get(RequestsViewModel::class.java)
+        ViewModelProviders.of(this).get(RequestsViewModel::class.java)
     }
     private val activityCast by lazy { activity as MainActivity }
 
@@ -39,12 +39,12 @@ class RequestsFragment : BaseFragment() {
         setHasOptionsMenu(true)
         srlRequests.setOnRefreshListener { fetchNewest() }
 
-        requestsViewModel.successful.observe(viewLifecycleOwner, Observer {
+        requestsViewModel.successful.observe(this, Observer {
             successful ->
             srlRequests.isRefreshing = false
             if (successful != null) {
                 if (successful) {
-                    requestsViewModel.pendingSuccessful.observe(viewLifecycleOwner, Observer {
+                    requestsViewModel.pendingSuccessful.observe(this, Observer {
                         successful ->
                         activityCast.hideProgressDialog()
                         if (successful != null) {

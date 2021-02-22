@@ -2,7 +2,7 @@ package org.systers.mentorship.view.fragments
 
 import android.content.DialogInterface
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import android.view.*
@@ -27,7 +27,7 @@ class ProfileFragment : BaseFragment() {
 
     private lateinit var fragmentProfileBinding: FragmentProfileBinding
     private val profileViewModel by lazy {
-        ViewModelProvider(this).get(ProfileViewModel::class.java)
+        ViewModelProviders.of(this).get(ProfileViewModel::class.java)
     }
 
     override fun getLayoutResourceId(): Int = R.layout.fragment_profile
@@ -44,7 +44,7 @@ class ProfileFragment : BaseFragment() {
 
         srlProfile.setOnRefreshListener { fetchNewest() }
 
-        profileViewModel.successfulGet.observe(viewLifecycleOwner, Observer {
+        profileViewModel.successfulGet.observe(this, Observer {
             successful ->
             srlProfile.isRefreshing = false
             if (successful != null) {
@@ -72,7 +72,7 @@ class ProfileFragment : BaseFragment() {
                     editProfileFragment.setOnDismissListener(DialogInterface.OnDismissListener {
                         fetchNewest()
                     })
-                    fragmentManager?.let { editProfileFragment.show(it, getString(R.string.fragment_title_edit_profile)) }
+                    editProfileFragment.show(fragmentManager, getString(R.string.fragment_title_edit_profile))
                 }
                 true
             }

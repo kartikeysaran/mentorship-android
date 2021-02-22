@@ -10,7 +10,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,7 +53,7 @@ class MembersFragment : BaseFragment() {
     private var memberListInitialized = false
 
     private val membersViewModel by lazy {
-        ViewModelProvider(this).get(MembersViewModel::class.java)
+        ViewModelProviders.of(this).get(MembersViewModel::class.java)
     }
     private lateinit var rvAdapter: MembersAdapter
     private var isLoading = false
